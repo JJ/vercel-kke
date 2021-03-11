@@ -69,6 +69,10 @@ var hitos = []Hito {
 		URI: "tests-unitarios",
 		Title: "Marcos de test",
 	},
+	Hito {
+		URI: "CI",
+		Title: "Sistemas de integración continua",
+	},
 
 }
 
@@ -106,7 +110,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		data := Response{ Msg: text,
 			Method: "sendMessage",
 			ChatID: update.Message.Chat.ID }
-		
+
 		msg, _ := json.Marshal( data )
 
 		log.Printf("Response %s", string(msg))
