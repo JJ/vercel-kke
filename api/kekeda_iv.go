@@ -51,44 +51,49 @@ func format_date(diff time.Duration) string {
 
 var hitos = []Hito {
 	Hito {
-		URI: "0.Repositorio",
+		URI: "git",
 		Title: "Datos básicos y repo",
-		fecha: time.Date(2020, time.September, 29, 11, 30, 0, 0, time.UTC),
 	},
 	Hito {
-		URI: "1.Infraestructura",
-		Title: "HUs y entidad principal",
+		URI: "ágil",
+		Title: "Idea/problema a resolver, «personas»",
 		fecha: time.Date(2020, time.October, 6, 11, 30, 0, 0, time.UTC),
 	},
 	Hito {
-		URI: "2.Tests",
-		Title: "Tests iniciales",
-		fecha: time.Date(2020, time.October, 16, 11, 30, 0, 0, time.UTC),
+		URI: "aplicaciones",
+		Title: "Épicas",
 	},
 	Hito {
-		URI: "3.Contenedores",
-		Title: "Contenedores",
-		fecha: time.Date(2020, time.October, 26, 11, 30, 0, 0, time.UTC),
+		URI: "servicios",
+		Title: "Servicios en la nube",
 	},
 	Hito {
-		URI: "4.CI",
-		Title: "Integración continua",
-		fecha: time.Date(2020, time.November, 6, 23, 59, 0, 0, time.UTC),
+		URI: "diseño",
+		Title: "Creando historias de usuario",
 	},
 	Hito {
-		URI: "5.Serverless",
-		Title: "Trabajando con funciones serverless",
-		fecha: time.Date(2020, time.November, 24, 23, 59, 0, 0, time.UTC),
+		URI: "organizando",
+		Title: "Planificación en Milestones",
 	},
 	Hito {
-		URI: "6.Microservicio",
-		Title: "Diseñando un microservicio",
-		fecha: time.Date(2020, time.December, 11, 23, 59, 0, 0, time.UTC),
+		URI: "a-programar",
+		Title: "Diseño general de clases, excepciones, modularización",
 	},
 	Hito {
-		URI: "7.PaaS",
-		Title: "Desplegando en un PaaS",
-		fecha: time.Date(2021, time.January, 14, 23, 59, 0, 0, time.UTC),
+		URI: "gestores-tareas",
+		Title: "Configuración como código: gestores de tareas",
+	},
+	Hito {
+		URI: "hacia-tests-unitarios",
+		Title: "Calidad en el código, linters",
+	},
+	Hito {
+		URI: "tests-unitarios-organización",
+		Title: "Bibliotecas de aserciones, setup",
+	},
+	Hito {
+		URI: "tests-unitarios",
+		Title: "Marcos de test",
 	},
 
 }
@@ -102,33 +107,17 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("Error en el update →", err)
 	}
 	log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-	currentTime := time.Now()
-	var next int
-	var queda time.Duration
-	for indice, hito := range hitos {
-		if ( hito.fecha.After( currentTime ) ) {
-			next = indice
-			queda = hito.fecha.Sub( currentTime )
-			break
-		}
-	}
 	if update.Message.IsCommand() {
 		text := ""
-		if ( next == 0 ) {
-			text = "Ninguna entrega próxima"
-		} else {
-
-			switch update.Message.Command() {
-			case "kk":
-				text = format_date(queda)
-			case "kekeda":
-				text = fmt.Sprintf( "→ Próximo hito %s\n🔗 https://jj.github.io/IV/documentos/proyecto/%s\n📅 %s",
+		switch update.Message.Command() {
+		case "kke":
+			text = fmt.Sprintf( "→ Hito %s\n🔗 https://jj.github.io/IV/documentos/proyecto/%s\n📅 %s",
 					hitos[next].Title,
 					hitos[next].URI,
 					hitos[next].fecha.String(),
 				)
 			default:
-				text = "Usa /kk para lo que queda para el próximo hito, /kekeda para + detalle"
+				text = "Usa /kke <hito> para más información sobre el hito de ÁgilGRX correspondiente"
 			}
 		}
 		data := Response{ Msg: text,
