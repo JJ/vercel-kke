@@ -83,13 +83,16 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 	if update.Message.IsCommand() {
 		text := ""
-		hito, error := strconv.Atoi(update.Message.CommandArguments())
+		argument := update.Message.CommandArguments()
+		log.Printf( "Argumento → ", argument )
+		hito, error := strconv.Atoi( argument )
 		if error != nil {
-			log.Fatal("Argumento incorrecto →", update.Message.CommandArguments() )
+			log.Printf("Argumento incorrecto →", argument )
+			text = "El argumento no es correcto, usa /kke <número>"
 		} else {
 			switch update.Message.Command() {
 			case "kke":
-				text = fmt.Sprintf( "→ Hito %s : %s\n🔗 https://jj.github.io/curso-tdd/temas/%s\n⚒ https://jj.github.io/curso-tdd/temas/%s#Actividad",
+				text = fmt.Sprintf( "→ Hito %d : %s\n🔗 https://jj.github.io/curso-tdd/temas/%s\n⚒ https://jj.github.io/curso-tdd/temas/%s#Actividad",
 					hito,
 					hitos[hito].Title,
 					hitos[hito].URI,
@@ -99,14 +102,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				text = "Usa /kke <hito> para más información sobre el hito de ÁgilGRX correspondiente"
 			}
 
-			data := Response{ Msg: text,
-				Method: "sendMessage",
-				ChatID: update.Message.Chat.ID }
-
-			msg, _ := json.Marshal( data )
-			log.Printf("Response %s", string(msg))
-			w.Header().Add("Content-Type", "application/json")
-			fmt.Fprintf(w,string(msg))
 		}
+		data := Response{ Msg: text,
+			Method: "sendMessage",
+			ChatID: update.Message.Chat.ID }
+		
+		msg, _ := json.Marshal( data )
+
+		log.Printf("Response %s", string(msg))
+		w.Header().Add("Content-Type", "application/json")
+		fmt.Fprintf(w,string(msg))
 	}
 }
