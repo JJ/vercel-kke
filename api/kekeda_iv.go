@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+	"strconv"
 	"encoding/json"
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 	"log"
@@ -21,33 +22,6 @@ type Response struct {
 	ChatID int64 `json:"chat_id"`
 	Method string `json:"method"`
 }
-
-func format_date(diff time.Duration) string {
-	// Función para convertir una diferencia de fechas
-	// a una cadena del tipo dias horas minutos segundos
-
-    // Definimos constantes para partir la diferencia
-    const Decisecond = 100 * time.Millisecond
-    const Day = 24*time.Hour
-
-    // Extraemos la cantidad de dias y las quitamos de la diferencia
-    d := diff / Day
-    diff = diff % Day
-    // Extraemos la cantidad de horas
-    h := diff / time.Hour
-    diff = diff % time.Hour
-    // Extraemos la cantidad de minutos
-    m := diff / time.Minute
-    diff = diff % time.Minute
-    // Extraemos la cantidad de secundos
-    s := diff / time.Second
-    diff = diff % time.Second
-    // Nos quedamos con las partes de segundo
-    f := diff / Decisecond
-    return  fmt.Sprintf("%dd %dh %dm %d.%ds", d, h, m, s, f)
-
-}
-
 
 var hitos = []Hito {
 	Hito {
@@ -109,17 +83,19 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 	if update.Message.IsCommand() {
 		text := ""
+		hito := strconv.Atoi(update.Message.CommandArguments())
 		switch update.Message.Command() {
 		case "kke":
-			text = fmt.Sprintf( "→ Hito %s\n🔗 https://jj.github.io/IV/documentos/proyecto/%s\n📅 %s",
-					hitos[next].Title,
-					hitos[next].URI,
-					hitos[next].fecha.String(),
-				)
-			default:
-				text = "Usa /kke <hito> para más información sobre el hito de ÁgilGRX correspondiente"
-			}
+			text = fmt.Sprintf( "→ Hito %s : %s\n🔗 https://jj.github.io/curso-tdd/temas/%s\n⚒ https://jj.github.io/curso-tdd/temas/%s#Actividad",
+				hito,
+				hitos[next].Title,
+				hitos[next].URI,
+				hitos[next].URI,
+			)
+		default:
+			text = "Usa /kke <hito> para más información sobre el hito de ÁgilGRX correspondiente"
 		}
+
 		data := Response{ Msg: text,
 			Method: "sendMessage",
 			ChatID: update.Message.Chat.ID }
