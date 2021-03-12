@@ -73,6 +73,10 @@ var hitos = []Hito {
 		URI: "CI",
 		Title: "Sistemas de integración continua",
 	},
+	Hito {
+		URI: "inversión",
+		Title: "Inversión/inyección de dependencias, mocks",
+	},
 
 }
 
