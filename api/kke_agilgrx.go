@@ -88,8 +88,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if err := json.Unmarshal(body,&update); err != nil {
 		log.Fatal("Error en el update →", err)
 	}
-	log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 	if update.Message.IsCommand() {
+		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 		text := ""
 		argument := update.Message.CommandArguments()
 		log.Printf( "Argumento → ", argument )
