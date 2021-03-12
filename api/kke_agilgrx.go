@@ -31,7 +31,6 @@ var hitos = []Hito {
 	Hito {
 		URI: "ágil",
 		Title: "Idea/problema a resolver, «personas»",
-		fecha: time.Date(2020, time.October, 6, 11, 30, 0, 0, time.UTC),
 	},
 	Hito {
 		URI: "aplicaciones",
@@ -88,7 +87,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if err := json.Unmarshal(body,&update); err != nil {
 		log.Fatal("Error en el update →", err)
 	}
-	if update.Message.IsCommand() {
+	if update.Message != nil &&  update.Message.IsCommand() {
 		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 		text := ""
 		argument := update.Message.CommandArguments()
