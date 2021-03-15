@@ -95,10 +95,10 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 		text := ""
 		argument := update.Message.CommandArguments()
-		log.Printf( "Argumento → ", argument )
+		log.Printf( "Argumento → [%s]", argument )
 		hito, error := strconv.Atoi( argument )
 		if error != nil {
-			log.Printf("Argumento incorrecto →", argument )
+			log.Printf("Argumento incorrecto → %s", argument )
 			text = "El argumento no es correcto, usa /kke <número>"
 		} else {
 			switch update.Message.Command() {
