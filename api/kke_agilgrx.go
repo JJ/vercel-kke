@@ -103,13 +103,16 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			switch update.Message.Command() {
 			case "kke":
-				if hito > 
-				text = fmt.Sprintf( "→ Hito %d : %s\n🔗 https://jj.github.io/curso-tdd/temas/%s\n⚒ https://jj.github.io/curso-tdd/temas/%s#Actividad",
+				if hito >=  len(hitos) {
+					text = fmt.Sprintf( "No tenemos info sobre el hito %d", hito )
+				} else {
+					text = fmt.Sprintf( "→ Hito %d : %s\n🔗 https://jj.github.io/curso-tdd/temas/%s\n⚒ https://jj.github.io/curso-tdd/temas/%s#Actividad",
 					hito,
 					hitos[hito].Title,
 					hitos[hito].URI,
 					hitos[hito].URI,
-				)
+					)
+				}
 			default:
 				text = "Usa /kke <hito> para más información sobre el hito de ÁgilGRX correspondiente"
 			}
