@@ -76,6 +76,10 @@ var hitos = []Hito {
 		URI: "inversión",
 		Title: "Inversión/inyección de dependencias, mocks",
 	},
+	Hito {
+		URI: "cobertura",
+		Title: "Tests de cobertura de caminos de código",
+	},
 
 }
 
@@ -99,6 +103,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			switch update.Message.Command() {
 			case "kke":
+				if hito > 
 				text = fmt.Sprintf( "→ Hito %d : %s\n🔗 https://jj.github.io/curso-tdd/temas/%s\n⚒ https://jj.github.io/curso-tdd/temas/%s#Actividad",
 					hito,
 					hitos[hito].Title,
