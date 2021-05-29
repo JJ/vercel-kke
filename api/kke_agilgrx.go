@@ -91,7 +91,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if err := json.Unmarshal(body,&update); err != nil {
 		log.Fatal("Error en el update →", err)
 	}
-	if update.Message != nil &&  update.Message.IsCommand() {
+	if update.Message != nil &&  update.Message.IsCommand() && update.Message.Command() == "kke" {
 		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 		text := ""
 		argument := update.Message.CommandArguments()
