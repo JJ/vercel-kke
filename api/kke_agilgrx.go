@@ -34,11 +34,15 @@ var hitos = []Hito {
 	},
 	Hito {
 		URI: "aplicaciones",
-		Title: "Épicas",
+		Title: "Épicas/Tipos",
 	},
 	Hito {
 		URI: "servicios",
 		Title: "Servicios en la nube",
+	},
+	Hito {
+		URI: "ágil",
+		Title: "Organización de un proyecto",
 	},
 	Hito {
 		URI: "diseño",
