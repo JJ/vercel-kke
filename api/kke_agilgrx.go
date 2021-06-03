@@ -29,7 +29,7 @@ var hitos = []Hito {
 		Title: "Datos básicos y repo",
 	},
 	Hito {
-		URI: "ágil",
+		URI: "ddd",
 		Title: "Idea/problema a resolver, «personas»",
 	},
 	Hito {
