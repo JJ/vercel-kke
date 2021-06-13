@@ -110,7 +110,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				if hito >=  len(hitos) {
 					text = fmt.Sprintf( "No tenemos info sobre el hito %d", hito )
 				} else {
-					text = fmt.Sprintf( "→ Hito %d : %s\n🔗 https://jj.github.io/curso-tdd/temas/%s\n⚒ https://jj.github.io/curso-tdd/temas/%s#Actividad",
+					text = fmt.Sprintf( "→ Hito %d : %s\n🔗 https://jj.github.io/curso-tdd/temas/%s\n⚒ https://jj.github.io/curso-tdd/temas/%s#actividad",
 					hito,
 					hitos[hito].Title,
 					hitos[hito].URI,
