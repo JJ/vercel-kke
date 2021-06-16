@@ -53,6 +53,10 @@ var hitos = []Hito {
 		Title: "Planificación en Milestones",
 	},
 	Hito {
+		URI: "revisiones",
+		Title: "Cómo llevar a cabo revisiones de código",
+	},
+	Hito {
 		URI: "a-programar",
 		Title: "Diseño general de clases, excepciones, modularización",
 	},
